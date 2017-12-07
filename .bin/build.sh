@@ -19,7 +19,7 @@ cp -r lib/ docs/js/
 
 cp -r src/css/images docs/css/images
 cp -r src/images docs/images
-cp -r lib js
+
 # copy piano keys image
 cp mockups/sketch01.png docs/images
 
