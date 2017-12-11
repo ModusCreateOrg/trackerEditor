@@ -15,8 +15,7 @@ class LoaderView extends Component {
     }
 
     saveJSON (e) {
-
-        // get fx, patterns, channels, and songName
+        // get fx, patterns, channels, songRepeat, and songName
         const { channels, fx, songName, songRepeat, patterns  } = this.props
         const saveData = {
             fx: fx,
@@ -159,7 +158,7 @@ const mapStateToProps = ({ channels, fx, songName, songRepeat, patterns }) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setLoadedData ({channels, fx, meta, patterns, tracks} = data) {
-            const { name = '', songRepeat = false } = meta
+            let { name = '', songRepeat } = meta
             patterns = patterns || tracks
 
             dispatch({
@@ -196,6 +195,17 @@ const mapDispatchToProps = (dispatch) => {
                 type: 'SET_SONG_NAME',
                 songName: name
             })
+
+            if (typeof songRepeat === 'boolean') {
+                songRepeat = {
+                    repeat: songRepeat,
+                    ch0: 0,
+                    ch1: 1,
+                    ch2: 2,
+                    ch3: 3
+                }
+            }
+
             dispatch({
                 type: "TOGGLE_SONG_REPEAT",
                 repeat: songRepeat

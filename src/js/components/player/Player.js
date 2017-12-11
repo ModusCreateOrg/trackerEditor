@@ -3,7 +3,7 @@ import PlayerView from './PlayerView'
 
 const mapStateToProps = (state) => {
     const { activePattern, activePatternType, channels, fx,
-          patternRepeat, patterns, songName, songRepeat } = state
+          patternRepeat, patterns, songIsPlaying, songName, songRepeat } = state
     return {
         activePattern,
         activePatternType,
@@ -11,6 +11,7 @@ const mapStateToProps = (state) => {
         fx,
         patternRepeat,
         patterns,
+        songIsPlaying,
         songName,
         songRepeat
     }

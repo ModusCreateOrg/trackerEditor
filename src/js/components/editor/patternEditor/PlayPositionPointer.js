@@ -48,17 +48,6 @@ class PlayPositionPointer extends Component {
         this.scrollable = document.getElementsByClassName('editor-table-container')[0]
     }
 
-    // testdrag (e) {
-    //     console.log(e)
-    //     const dragIcon = document.createElement('div')
-    //     // dragIcon.src = 'http://jsfiddle.net/favicon.png'
-    //     // dragIcon.style.width = '100px'
-    //     // dragIcon.style.height = '100px'
-    //     // dragIcon.style.backgroundColor = 'red'
-    //     document.body.appendChild(dragIcon)
-    //     e.dataTransfer.setDragImage(dragIcon, -10, -10);
-    // }
-
     render () {
         return (
             <span
