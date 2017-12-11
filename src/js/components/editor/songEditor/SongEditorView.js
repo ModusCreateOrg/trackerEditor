@@ -166,6 +166,34 @@ class SongEditor extends Component {
         return buttons
     }
 
+    getChannelLoopFields () {
+        const fields = []
+
+        for (let i = 0; i < 4; i++) {
+            const {
+                onChannelLoopChange,
+                songRepeat,
+                toggleSongRepeat
+            } = this.props
+
+            fields.push(
+                <select
+                    key={i}
+                    id={`channel-loop-input-ch${i}`}
+                    value={songRepeat[`ch${i}`]}
+                    onChange={toggleSongRepeat}
+                >
+                    <option value={0}>0</option>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                </select>
+            )
+        }
+
+        return fields
+    }
+
     render () {
         const state = this.state
         const { dropIndicatorColor, showDropIndicator } = state
@@ -229,18 +257,19 @@ class SongEditor extends Component {
                     <button onClick={ this[playOrStop] }>
                         {`${playOrStopText}`} Song
                     </button>
-                    <label>
-                        Repeat
-                        <input
-                            type="checkbox"
-                            onChange={ e => toggleSongRepeat(e.target.checked) }
-                            checked={songRepeat}
-                        />
-                    </label>
                     <div style={{flex: 1}}></div>
                     <button onClick={this.toggleMute}>
                         {`${state.isMuted ? 'un' : ''}mute`}
                     </button>
+                    <label>
+                        Loop
+                        <input
+                            id="song-loop"
+                            type="checkbox"
+                            onChange={toggleSongRepeat}
+                            checked={songRepeat.repeat}
+                        />
+                    </label>
                 </div>
 
                 <div className="song-editor-channels">
@@ -291,6 +320,13 @@ class SongEditor extends Component {
 
                     <div className="channel-fx-box">
                         {this.getChannelFxButtons(activeFx)}
+                    </div>
+
+                    <div
+                        style={{display: songRepeat.repeat ? 'flex' : 'none'}}
+                        className="channel-loop-input-ct"
+                    >
+                        {this.getChannelLoopFields()}
                     </div>
 
                 </div>

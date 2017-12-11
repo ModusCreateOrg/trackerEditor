@@ -30,7 +30,13 @@ const mapDispatchToProps = (dispatch) => {
         toggleSongRepeat (repeat) {
             dispatch({
                 type: "TOGGLE_SONG_REPEAT",
-                repeat
+                repeat: {
+                    repeat: document.getElementById('song-loop').checked,
+                    ch0: document.getElementById('channel-loop-input-ch0').value,
+                    ch1: document.getElementById('channel-loop-input-ch1').value,
+                    ch2: document.getElementById('channel-loop-input-ch2').value,
+                    ch3: document.getElementById('channel-loop-input-ch3').value
+                }
             })
         },
         onSongNameChange (e) {

@@ -112,7 +112,8 @@ label {
     font-weight: 600;
 }
 
-input {
+input,
+select {
     text-transform: uppercase;
     border: 1px solid #4e999c;
     font-size: 13pt;
@@ -120,6 +121,7 @@ input {
     color:  #594e4e;
     outline: none;
     min-width: 50px;
+    border-radius: 0px !important;
 }
 
 button, input[type="submit"] {

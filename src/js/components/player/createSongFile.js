@@ -390,9 +390,9 @@ function getScoreData (allPatterns, songName) {
   },
   .num_channels = ${channelCount},
   .start_patterns = {
-    0x00,                         // Channel 0 entry pattern (SQUARE)
+    0x00,                         // Channel 0 entry pattern (PULSE)
     0x01,                         // Channel 1 entry pattern (SQUARE)
-    0x02,                         // Channel 2 entry pattern (SQUARE)
+    0x02,                         // Channel 2 entry pattern (TRIANGLE)
     0x03,                         // Channel 3 entry pattern (NOISE)
   },
   ${patternData}
@@ -603,8 +603,9 @@ function atmifyChannel ({ channel, effects, index,
   totalBytes += newFxEnd.bytes;
 
   // end of channel
-  if (songRepeat && channelPattern.length) {
-    channelPattern.push(`ATM_CMD_M_SET_LOOP_PATTERN(${index})`);
+  if (songRepeat.repeat && channelPattern.length) {
+    const loopVal = songRepeat[`ch${index}`]
+    channelPattern.push(`ATM_CMD_M_SET_LOOP_PATTERN(${loopVal})`);
   }
   channelPattern.push('ATM_CMD_I_STOP');
   totalBytes++;

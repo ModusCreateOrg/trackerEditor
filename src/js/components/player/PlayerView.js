@@ -273,9 +273,35 @@ class Player extends Component {
     }
 
     createAndPlaySong () {
-        const { patterns, channels, fx, songRepeat } = this.props
+        const { patterns, channels, fx, songIsPlaying, songRepeat } = this.props
 
         let music = createSongFromChannels(patterns, channels, fx)
+
+        // sets the repeating channel entry points only if the song is set to
+        // repeat and has played through once already
+        if (songIsPlaying && songRepeat.repeat) {
+            const ch0 = songRepeat.ch0
+            const ch1 = songRepeat.ch1
+            const ch2 = songRepeat.ch2
+            const ch3 = songRepeat.ch3
+
+            music = music.replace(
+                '0x00,			// Channel 0 entry pattern',
+                `0x0${ch0},			// Channel 0 entry pattern`
+            )
+            music = music.replace(
+                '0x01,			// Channel 1 entry pattern',
+                `0x0${ch1},			// Channel 1 entry pattern`
+            )
+            music = music.replace(
+                '0x02,			// Channel 2 entry pattern',
+                `0x0${ch2},			// Channel 2 entry pattern`
+            )
+            music = music.replace(
+                '0x03,			// Channel 3 entry pattern',
+                `0x0${ch3},			// Channel 3 entry pattern`
+            )
+        }
 
         music = music.replace(/\/\/"Pattern.*"/g, 'Pattern,')
         music = music.replace(/, /g, ',\n')
@@ -308,8 +334,7 @@ class Player extends Component {
 
         this.props.setSongIsPlaying(true)
         this.playSong(music, () => {
-            const { songRepeat } = this.props
-            this[songRepeat ? 'createAndPlaySong' : 'stopSong']()
+            this[songRepeat.repeat ? 'createAndPlaySong' : 'stopSong']()
         })
     }
 

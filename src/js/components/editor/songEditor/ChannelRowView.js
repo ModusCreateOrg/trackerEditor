@@ -44,7 +44,7 @@ class ChannelRowView extends Component {
             if (target.classList.contains('draggable')) {
                 const { left, top } = target.getBoundingClientRect()
                 const { color } = this.props.dragSource
-                console.log(target.getBoundingClientRect())
+                
                 this.props.showDropIndicator({
                     color: (color && color.hex) || '#00969b',
                     x: left,
